@@ -1,4 +1,4 @@
-#include "DP_simu/DMPartice.hh"
+#include "DP_simu/DMParticeAPrime.hh"
 
 #include "G4ParticleTable.hh"
 #include "G4PhysicalConstants.hh"
@@ -7,9 +7,9 @@
 #include "G4DalitzDecayChannel.hh"
 #include "G4DecayTable.hh"
 
-DMParticle * DMParticle::theInstance = nullptr;
+DMParticleAPrime * DMParticleAPrime::theInstance = nullptr;
 
-DMParticle* DMParticle::Definition()
+DMParticleAPrime* DMParticleAPrime::Definition()
 {
   if( theInstance ) {
     return theInstance;
@@ -41,7 +41,7 @@ DMParticle* DMParticle::Definition()
                 /* decay table .............. */ NULL,
                 /* shortlived ............... */ false,
                 /* subType .................. */ "DMParticleAPrime",
-                /* anti particle encoding ... */ 500012
+                /* anti particle encoding ... */ 500022
             );
 
     // Life time is given from width
@@ -58,6 +58,6 @@ DMParticle* DMParticle::Definition()
     //table->Insert(mode);
     //anInstance->SetDecayTable(table);
   }
-  theInstance = reinterpret_cast<DMParticle*>(anInstance);
+  theInstance = reinterpret_cast<DMParticleAPrime*>(anInstance);
   return theInstance;
 }
