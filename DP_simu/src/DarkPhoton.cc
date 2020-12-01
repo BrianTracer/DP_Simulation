@@ -5,7 +5,6 @@
 //
 #include "DarkMatter.hh"
 #include "DarkPhotons.hh"
-#include "Utils.hh"
 
 #include "Randomize.hh"
 

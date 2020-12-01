@@ -15,7 +15,7 @@ DMBremProcess::DMBremProcess(DarkMatter* DarkMatterPointerIn, G4ParticleDefiniti
 //here I don't think what to define
 }
 
-G4bool DMProcessDMBrem::IsApplicable(const G4ParticleDefinition & pDef)
+G4bool DMBremProcess::IsApplicable(const G4ParticleDefinition & pDef)
 {
   return ("e-" == pDef.GetParticleName());
   //return fModelPtr->IsApplicableToParticle(pDef);
@@ -40,7 +40,7 @@ G4bool DMProcessDMBrem::IsApplicable(const G4ParticleDefinition & pDef)
 
 
 
-G4VParticleChange* DMProcessDMBrem::PostStepDoIt( const G4Track& aTrack, const G4Step & aStep )
+G4VParticleChange* DMBremProcess::PostStepDoIt( const G4Track& aTrack, const G4Step& aStep )
 {
   const G4double incidentE = aTrack.GetKineticEnergy();
   //const G4double DMMass = theDMParticleAPrimePtr->GetPDGMass();
@@ -75,14 +75,14 @@ G4VParticleChange* DMProcessDMBrem::PostStepDoIt( const G4Track& aTrack, const G
   }
   
   G4DynamicParticle* movingDM = new G4DynamicParticle( theDMParticlePtr, DMDirection, DME );
-  aParticleChange.Initialize( aTrack );
+  G4ParticleChange.Initialize( aTrack );
 
   // Set DM:
-  aParticleChange.SetNumberOfSecondaries( 1 );
-  aParticleChange.AddSecondary( movingDM );
+  G4ParticleChange.SetNumberOfSecondaries( 1 );
+  G4ParticleChange.AddSecondary( movingDM );
   // Set projectile changes:
-  aParticleChange.ProposeEnergy( recoilE );
-  aParticleChange.ProposeMomentumDirection( projDirection );
+  G4ParticleChange.ProposeEnergy( recoilE );
+  G4ParticleChange.ProposeMomentumDirection( projDirection );
 
   std::cout << "DM PDG ID = " << theDMParticlePtr->GetPDGEncoding() 
             << " emitted by " << aTrack.GetDefinition()->GetParticleName()

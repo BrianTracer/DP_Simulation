@@ -5,7 +5,6 @@
 #include "DP_simu/DarkMatter.hh"
 #include "Randomize.hh"
 #include <iostream>
-#include <gsl>
 
 DarkMatter::DarkMatter(double MAIn, double EThreshIn, double SigmaNormIn, double ANuclIn, double ZNuclIn, double DensityIn, double epsilIn, int IDecayIn)
 :MA(MAIn), EThresh(EThreshIn), SigmaNorm(SigmaNormIn),

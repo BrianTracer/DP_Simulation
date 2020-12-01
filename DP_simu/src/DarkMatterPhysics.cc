@@ -18,7 +18,7 @@ DarkMatterPhycis::DarkMatterPhysics()
 : G4VPhysicsconstructor("DarkMatterPhysics")
 {
     SetPhysicsType(bUnknown);
-    G4double BiasSigmafactor0=8.e8;//here is a guess from calchep results
+    G4double BiasSigmafactor0=8.e8;//here is a estimation from calchep results
     G4double Etresh=35.;//the sebsivity calculation for the invisible mode, need to be checked
     double dummy_mass=0.0167;
     myDarkMatter = new DarkPhotons(dummy_mass, Etresh);

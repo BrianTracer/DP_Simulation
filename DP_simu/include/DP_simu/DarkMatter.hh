@@ -40,7 +40,7 @@ class DarkMatter
     //int GetDMType() {return DMType;}
     int GetParentPDGID() {return ParentPDGID;}
     int GetDaughterPDGID() {return DaughterPDGID;}
-    int Decay() {return IDecay;}
+    //int Decay() {return IDecay;}
      // usage of normalization below:   Nsign = (Naccepted/Nsimulated)*Normalization*EOT
     double GetNormalization() {return 3.0e-15 * (Density/11.35) * (207./ANucl) *
                                       epsil * epsil / (SigmaNorm * epsilBench * epsilBench);}
@@ -51,7 +51,7 @@ class DarkMatter
     double GetSigmaAngleMax(double E0);
     virtual bool EmissionAllowed(double E0, double DensityMat); // E0 in GeV, density in g/cm3
     bool Emission(double E0, double DensityMat, double StepLength); // E0 in GeV, density in g/cm3, StepLength in mm
-    double CrossSectionDSDX(double XEv, double E0)
+    double CrossSectionDSDX(double XEv, double E0);
     //virtual double CrossSectionDSDX(double Xev, double E0) = 0;
     virtual double CrossSectionDSDXDU(double Xev, double UThetaEv, double E0) = 0;
     virtual double Width() = 0;
