@@ -18,11 +18,12 @@
 #include <gsl/gsl_integration.h>
 #include <gsl/gsl_rng.h>
 
-#include <iostream>
 #include "G4ios.hh"
+#include <stdlib.h>
+#include <math.h>
+#include <iostream>
 
-
-
+#define EPSPARINV 1.e-8
 #define  nMALowM 18 // number of MA grid divisions
 
 double TotCSVectorParticle(double MAtest) // CS in GeV^-2 for epsilon=1

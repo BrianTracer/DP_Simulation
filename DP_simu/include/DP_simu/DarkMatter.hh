@@ -12,6 +12,7 @@ struct ParamsForMuonTotCS {double AA; double ZZ; double MMA; double EE0;};
 
 double chi (double t, void * pp);
 
+double parinv(double x, double a[], double f[], int n);
 
 class DarkMatter
 {
