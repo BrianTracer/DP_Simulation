@@ -1,24 +1,24 @@
 #include "DP_simu/DarkMatterPhysics.hh"
 
 #include "DP_simu/DarkMatter.hh"
-#include "DP_simu/DMParticle.hh"
-#include "DP_simu/DPBremProcess.hh"
-
+#include "DP_simu/DMParticleAPrime.hh"
+#include "DP_simu/DMBremProcess.hh"
+#include "DP_simu/DarkPhotons.hh"
 #include "G4Electron.hh"
 #include "G4Positron.hh"
 #include "G4Gamma.hh"
 #include "G4MuonMinus.hh"
 #include "G4MuonPlus.hh"
-
+#include "G4StepLimiter.hh"
 #include "G4BuilderType.hh"
-#include "G4SystemOfUnits.hh
+#include "G4SystemOfUnits.hh"
 #include <iostream>
 
-DarkMatterPhycis::DarkMatterPhysics()
-: G4VPhysicsconstructor("DarkMatterPhysics")
+DarkMatterPhysics::DarkMatterPhysics()
+: G4VPhysicsConstructor("DarkMatterPhysics")
 {
     SetPhysicsType(bUnknown);
-    G4double BiasSigmafactor0=8.e8;//here is a estimation from calchep results
+    G4double BiasSigmaFactor0=8.e8;//here is a estimation from calchep results
     G4double Etresh=35.;//the sebsivity calculation for the invisible mode, need to be checked
     double dummy_mass=0.0167;
     myDarkMatter = new DarkPhotons(dummy_mass, Etresh);
@@ -58,7 +58,7 @@ void DarkMatterPhysics::ConstructProcess()
 
   phLHelper->DumpOrdingParameterTable();
   
-  phLHelper->RegisterProcess( new DMProcessDMBrem(myDarkMatter, theDMParticlePtr, BiasSigmaFactor),
+  phLHelper->RegisterProcess( new DMBremProcess(myDarkMatter, theDMParticlePtr, BiasSigmaFactor),
                               G4Electron::ElectronDefinition() );
   phLHelper->RegisterProcess( new G4StepLimiter(), theDMParticlePtr );
 

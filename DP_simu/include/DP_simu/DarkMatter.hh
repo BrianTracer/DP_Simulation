@@ -20,16 +20,16 @@ class DarkMatter
  
   public:
 
-    //DarkMatter(double MAIn, double EThreshIn, double SigmaNormIn=1., double ANuclIn=207., double ZNuclIn=84., double DensityIn=11.35,
-    //           double epsilIn=0.0001, int IDecayIn=0);
     DarkMatter(double MAIn, double EThreshIn, double SigmaNormIn=1., double ANuclIn=207., double ZNuclIn=84., double DensityIn=11.35,
-               double epsilIn=0.0001 );
+               double epsilIn=0.0001, int IDecayIn=0);
+    //DarkMatter(double MAIn, double EThreshIn, double SigmaNormIn=1., double ANuclIn=207., double ZNuclIn=84., double DensityIn=11.35,
+    //           double epsilIn=0.0001 );
     virtual ~DarkMatter();
 
     void SetSigmaNorm(double SigmaNormIn);
     void ResetNEmissions() {NEmissions = 0;} // For G4 DM classes
     void EmissionSimulated() {NEmissions++;} // For G4 DM classes; in future do it automatically in SimulateEmission
-    virtual double TotalCrossSectionCalc(double E0) = 0;
+    //virtual double TotalCrossSectionCalc(double E0) = 0;
     void PrepareTable();
     double GetMA() {return MA;}
     virtual void SetMA(double MAIn) {MA = MAIn;}

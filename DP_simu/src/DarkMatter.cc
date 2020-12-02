@@ -5,10 +5,11 @@
 #include "DP_simu/DarkMatter.hh"
 #include "Randomize.hh"
 #include <iostream>
+#define EPSPARINV 1.e-8
 
-DarkMatter::DarkMatter(double MAIn, double EThreshIn, double SigmaNormIn, double ANuclIn, double ZNuclIn, double DensityIn, double epsilIn, int IDecayIn)
+DarkMatter::DarkMatter(double MAIn, double EThreshIn, double SigmaNormIn, double ANuclIn, double ZNuclIn, double DensityIn, double epsilIn, int DecayIn)
 :MA(MAIn), EThresh(EThreshIn), SigmaNorm(SigmaNormIn),
-ANucl(ANuclIn), ZNucl(ZNuclIn), Density(DensityIn), epsilBench(0.0001), epsil(epsilIn), IDecay(IDecayIn),
+ANucl(ANuclIn), ZNucl(ZNuclIn), Density(DensityIn), epsilBench(0.0001), epsil(epsilIn),
 AccumulatedProbability(0.), NEmissions(0)
 {
   int NPTAB = 15;
@@ -28,7 +29,7 @@ double parinv(double x, double a[], double f[], int n)
 //    in arrays a, f with dimension n.
 //
   int k1, k2, k3;
-
+  
   if(n < 3) {std::cerr << "parinv: insufficient number of points" << std::endl; exit(1);}
   if(x < a[0]) {
     double c = fabs(x - a[0]);

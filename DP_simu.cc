@@ -35,7 +35,8 @@
 #include "DP_simu/TrackingAction.hh"
 #include "DP_simu/SteppingAction.hh"
 #include "DP_simu/RootManager.hh"
-
+#include "DP_simu/DarkMatter.hh"
+#include "DP_simu/DarkMatterPhysics.hh"
 //#include "G4StepLimiterBuilder.hh"  // Geant4.9
 #include "G4StepLimiterPhysics.hh"  // Geant4.10
 #include "G4GenericBiasingPhysics.hh"
@@ -123,25 +124,33 @@ int main(int argc, char **argv) {
     // Set mandatory initialization classes
 
     runManager->SetUserInitialization(new DetectorConstruction(rootMng));
-
+    //G4PhysListFactory factory;
+    //G4VModularPhysicsList * phys = factory.GetReferencePhysList("FTFP_BERT");
+  
     G4VModularPhysicsList *physicsList = new FTFP_BERT;
+    //physicsList->ReplacePhysics(new G4EmStandardPhysics_option4())
+    DarkMatterPhysics* myPhysics = new DarkMatterPhysics();
+    physicsList->RegisterPhysics(myPhysics);  
+    std::cout<<"ADDED"<<std::endl;
+    runManager->SetUserInitialization(physicsList); 
+
     physicsList->SetVerboseLevel(0);
     if (rootMng->GetOptical()) {
         physicsList->ReplacePhysics(new G4EmStandardPhysics_option4());
         auto *opticalPhysics = new G4OpticalPhysics();
         physicsList->RegisterPhysics(opticalPhysics);
     }
-    physicsList->RegisterPhysics(new G4StepLimiterPhysics());
-    physicsList->RegisterPhysics(new GammaPhysics());
-    auto *biasingPhysics = new G4GenericBiasingPhysics();
-    biasingPhysics->Bias("e-");
-    biasingPhysics->Bias("gamma");
-    physicsList->RegisterPhysics(biasingPhysics);
+    //physicsList->RegisterPhysics(new G4StepLimiterPhysics());
+    //physicsList->RegisterPhysics(new GammaPhysics());
+    //auto *biasingPhysics = new G4GenericBiasingPhysics();
+    //biasingPhysics->Bias("e-");
+    //biasingPhysics->Bias("gamma");
+    //physicsList->RegisterPhysics(biasingPhysics);
 
 
     //physicsList->RegisterPhysics( new OpticalPhysics( rootMng ) );
 
-    runManager->SetUserInitialization(physicsList);
+    //runManager->SetUserInitialization(physicsList);
 
 
 

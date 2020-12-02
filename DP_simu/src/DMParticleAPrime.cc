@@ -1,4 +1,4 @@
-#include "DP_simu/DMParticeAPrime.hh"
+#include "DP_simu/DMParticleAPrime.hh"
 
 #include "G4ParticleTable.hh"
 #include "G4PhysicalConstants.hh"

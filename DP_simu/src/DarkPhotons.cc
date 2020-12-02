@@ -3,8 +3,8 @@
 // To be used in a Geant4 application.
 //
 //
-#include "DarkMatter.hh"
-#include "DarkPhotons.hh"
+#include "DP_simu/DarkMatter.hh"
+#include "DP_simu/DarkPhotons.hh"
 
 #include "Randomize.hh"
 
@@ -40,7 +40,7 @@ DarkPhotons::DarkPhotons(double MAIn, double EThreshIn, double SigmaNormIn, doub
                          double epsilIn, int IDecayIn)
 : DarkMatter(MAIn, EThreshIn, SigmaNormIn, ANuclIn, ZNuclIn, DensityIn, epsilIn, IDecayIn)
 {
-  DMType = 1;
+  //DMType = 1;
   ParentPDGID = 11;
   DaughterPDGID = 11;
   std::cout << "Initialized DarkPhotons off electrons and positrons for material density = " << DensityIn << std::endl;
@@ -64,13 +64,13 @@ double DarkPhotons::GetSigmaTot(double E0)
 
 double DarkPhotons::CrossSectionDSDX(double XEv, double E0)
 {
-    sigma = 0;
+    double sigma = 0;
   if(MA > 0.001) {
     double momentumOfDP=sqrt(XEv*XEv*E0*E0-MA*MA);
     double umaxtilde = -MA*MA*(1.0-XEv)/XEv - Mel*Mel*XEv;
     double Numerator = Mel*Mel*XEv*(-2. + 2.*XEv + XEv*XEv) - 2.*umaxtilde*(3. - 3.*XEv + XEv*XEv);
     double Denominator = 3.*XEv*umaxtilde*umaxtilde;
-    double sigma = momentumOfDP*Numerator/Denominator;
+    sigma = momentumOfDP*Numerator/Denominator;
     return sigma;
   } else {
     return sigma;
@@ -79,13 +79,14 @@ double DarkPhotons::CrossSectionDSDX(double XEv, double E0)
 
 
 double DarkPhotons::CrossSectionDSDXDU(double XEv, double UThetaEv, double E0)
-{ sigma = 0;
+{ 
+  double sigma = 0;
   if(MA > 0.001) {
     double Uxtheta = 2.*E0*E0*UThetaEv*XEv + MA*MA*(1.0-XEv)/XEv + Mel*Mel*XEv;
     double AA = (1. - XEv + XEv*XEv/2.) / (Uxtheta*Uxtheta);
     double BB = (1. - XEv)*(1. - XEv)*MA*MA/(Uxtheta*Uxtheta*Uxtheta*Uxtheta);
     double CC = MA*MA - Uxtheta*XEv/(1. - XEv);
-    double sigma = XEv * (AA + BB*CC);
+    sigma = XEv * (AA + BB*CC);
     return sigma;
   } else {
     return sigma ;

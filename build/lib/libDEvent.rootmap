@@ -1,0 +1,28 @@
+{ decls }
+namespace std {  }
+
+[ libDEvent.so ]
+# List of selected classes
+class CalorimeterHit
+class DEvent
+class DHit
+class DParticle
+class DStep
+class McParticle
+class ReconstructedParticle
+class SimulatedHit
+class vector<CalorimeterHit*>
+class vector<DHit*>
+class vector<DParticle*>
+class vector<DStep*>
+class vector<McParticle*>
+class vector<ReconstructedParticle*>
+class vector<SimulatedHit*>
+header Object/CalorimeterHit.h
+header Object/DEvent.h
+header Object/DHit.h
+header Object/DParticle.h
+header Object/DStep.h
+header Object/McParticle.h
+header Object/ReconstructedParticle.h
+header Object/SimulatedHit.h

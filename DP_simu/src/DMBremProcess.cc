@@ -1,7 +1,8 @@
 #include "DP_simu/DMBremProcess.hh"
 #include "DP_simu/DarkMatter.hh"
-#include "DP_simu/DarkPhoton.hh"
-
+#include "DP_simu/DarkPhotons.hh"
+#include "G4ParticleChange.hh"
+#include "DP_simu/DMParticleAPrime.hh"
 #include "G4ProcessType.hh"
 #include "G4EmProcessSubType.hh"
 #include "G4SystemOfUnits.hh"
@@ -13,6 +14,8 @@ DMBremProcess::DMBremProcess(DarkMatter* DarkMatterPointerIn, G4ParticleDefiniti
   BiasSigmaFactor(BiasSigmaFactorIn)
 {
 //here I don't think what to define
+  SetProcessSubType( 500 ); 
+  theDMParticlePtr->SetPDGLifeTime(CLHEP::hbar_Planck/(myDarkMatter->Width()*GeV)); 
 }
 
 G4bool DMBremProcess::IsApplicable(const G4ParticleDefinition & pDef)
@@ -22,21 +25,21 @@ G4bool DMBremProcess::IsApplicable(const G4ParticleDefinition & pDef)
 }
 
 //Here is not need for invisible decay, will be added in future 
-//G4double DMProcessDMBrem::GetMeanFreePath( const G4Track& aTrack, G4double, /*previousStepSize*/ G4ForceCondition* /*condition*/ )
-//{
-//  G4double DensityMat = aTrack.GetMaterial()->GetDensity()/(g/cm3);
-//  G4double ekin = aTrack.GetKineticEnergy()/GeV;
-//  //Define if we can emission of Dark Matter/Dark Photon
-//  if( myDarkMatter->EmissionAllowed(ekin, DensityMat) ) 
-//  {
-//    G4double XMeanFreePath = myDarkMatter->GetMeanFreePathFactor()/myDarkMatter->GetSigmaTot(ekin);
-//    XMeanFreePath /= BiasSigmaFactor;
-//    // std::cout << "DMMeanFreePath = " << XMeanFreePath << std::endl;
-//    return XMeanFreePath;
-//  }
-//  //if not emit, nothing
-//  return DBL_MAX;
-//}
+G4double DMBremProcess::GetMeanFreePath( const G4Track& aTrack, G4double, /*previousStepSize*/ G4ForceCondition* /*condition*/ )
+{
+  G4double DensityMat = aTrack.GetMaterial()->GetDensity()/(g/cm3);
+  G4double ekin = aTrack.GetKineticEnergy()/GeV;
+  //Define if we can emission of Dark Matter/Dark Photon
+  if( myDarkMatter->EmissionAllowed(ekin, DensityMat) ) 
+  {
+    G4double XMeanFreePath = myDarkMatter->GetMeanFreePathFactor()/myDarkMatter->GetSigmaTot(ekin);
+    XMeanFreePath /= BiasSigmaFactor;
+    // std::cout << "DMMeanFreePath = " << XMeanFreePath << std::endl;
+    return XMeanFreePath;
+  }
+  //if not emit, nothing
+  return DBL_MAX;
+}
 
 
 
@@ -75,14 +78,14 @@ G4VParticleChange* DMBremProcess::PostStepDoIt( const G4Track& aTrack, const G4S
   }
   
   G4DynamicParticle* movingDM = new G4DynamicParticle( theDMParticlePtr, DMDirection, DME );
-  G4ParticleChange.Initialize( aTrack );
+  aParticleChange.Initialize( aTrack );
 
   // Set DM:
-  G4ParticleChange.SetNumberOfSecondaries( 1 );
-  G4ParticleChange.AddSecondary( movingDM );
+  aParticleChange.SetNumberOfSecondaries( 1 );
+  aParticleChange.AddSecondary( movingDM );
   // Set projectile changes:
-  G4ParticleChange.ProposeEnergy( recoilE );
-  G4ParticleChange.ProposeMomentumDirection( projDirection );
+  aParticleChange.ProposeEnergy( recoilE );
+  aParticleChange.ProposeMomentumDirection( projDirection );
 
   std::cout << "DM PDG ID = " << theDMParticlePtr->GetPDGEncoding() 
             << " emitted by " << aTrack.GetDefinition()->GetParticleName()

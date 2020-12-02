@@ -8,7 +8,7 @@ class DarkPhotons : public DarkMatter
 
     virtual ~DarkPhotons();
 
-    virtual double TotalCrossSectionCalc(double E0);
+    //virtual double TotalCrossSectionCalc(double E0);
     virtual double GetSigmaTot(double E0);
     virtual double CrossSectionDSDX(double Xev, double E0);
     virtual double CrossSectionDSDXDU(double Xev, double UThetaEv, double E0);
